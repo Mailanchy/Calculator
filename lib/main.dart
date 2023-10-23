@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,6 +29,13 @@ class _MyAppState extends State<MyApp> {
                   child: Container(
                     height: MediaQuery.of(context).size.width - 40,
                     decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 3.0,
+                          offset: Offset(0, 4),
+                        )
+                      ],
                       borderRadius: BorderRadius.circular(40),
                       color: const Color(0xFFBDE2C0),
                     ),
@@ -76,9 +85,7 @@ class _MyAppState extends State<MyApp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                            child:
-                                NumTiles(c: Color(0xFF75738F), s: "0")),
+                        Expanded(child: NumTiles(c: Color(0xFF75738F), s: "0")),
                         NumTiles(c: Color(0xFF75738F), s: "."),
                         NumTiles(c: Color(0xFFF26E76), s: "="),
                       ],
@@ -104,27 +111,33 @@ class NumTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Colors.white, c]),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(1.0),
-          child: Container(
-            width: MediaQuery.of(context).size.width / 5,
-            height: MediaQuery.of(context).size.width / 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: c,
-            ),
-            child: Center(
-              child: Text(
-                s,
-                style: const TextStyle(color: Colors.white),
+      child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [Colors.white, c]),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 5,
+              height: MediaQuery.of(context).size.width / 5,
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: [c.withAlpha(197), c],
+                  radius: 0.7,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                color: c,
+              ),
+              child: Center(
+                child: Text(
+                  s,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
